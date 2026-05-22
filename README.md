@@ -1,3 +1,11 @@
+# DEFINIZIONE TECNOLOGIE USATE
+## Backend
+1. DBMS -> Sqlite3
+2. Gestione rotte -> Flask
+
+## Frontend
+1. React Native
+
 # Welcome to your Expo app 👋
 
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
