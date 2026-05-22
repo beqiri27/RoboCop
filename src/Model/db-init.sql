@@ -3,6 +3,7 @@ CREATE TABLE utente(
     username VARCHAR(30) NOT NULL UNIQUE,
     password_utente VARCHAR(30) NOT NULL,
     ruolo ENUM('user','admin') NOT NULL
+    telefono VARCHAR(14) NOT NULL
 );
 
 CREATE TABLE segnalazione(
