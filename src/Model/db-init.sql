@@ -1,8 +1,8 @@
 CREATE TABLE utente(
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(30) NOT NULL UNIQUE,
-    password_utente VARCHAR(30) NOT NULL,
-    ruolo ENUM('user','admin') NOT NULL
+    'password' VARCHAR(30) NOT NULL,
+    ruolo ENUM('user','admin') NOT NULL,
     telefono VARCHAR(14) NOT NULL
 );
 
