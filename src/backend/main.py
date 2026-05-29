@@ -12,7 +12,7 @@ CORS(app)
 DB_CONFIG = {
     "host": "localhost",
     "user": "root",           # Cambia con il tuo utente MySQL
-    "password": "",           # Cambia con la tua password MySQL
+    "password": "root",           # Cambia con la tua password MySQL
     "database": "robocop",    # Cambia con il nome del tuo DB
     "charset": "utf8mb4"
 }
@@ -181,7 +181,6 @@ def CreaSegnalazione():
     finally:
         cursor.close()
         connection.close()
-
 
 @app.route("/segnalazioni", methods=["GET"])
 def OttieniSegnalazioni():

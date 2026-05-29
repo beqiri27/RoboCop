@@ -23,3 +23,7 @@ CREATE TABLE IF NOT EXISTS segnalazione (
     criticita ENUM('bassa', 'media', 'alta') NOT NULL,
     CONSTRAINT fk_utente FOREIGN KEY (id_utente) REFERENCES utente(id)
 );
+
+INSERT INTO utente (username, password, ruolo, telefono) VALUES
+('admin', 'admin', 'admin', '1234567890'),
+('user1', 'user1', 'user', '0987654321');
