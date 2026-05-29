@@ -13,9 +13,11 @@ import {
 import { useRouter } from 'expo-router';
 import { COLORS } from '../constants/colors';
 import { API_BASE } from '../constants/api';
+import { useAuth } from '../context/AuthContext';
 
 export default function LoginScreen() {
   const router = useRouter();
+  const { login } = useAuth();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -39,10 +41,8 @@ export default function LoginScreen() {
         setError(data.error ?? 'Errore durante il login.');
         return;
       }
-      router.replace({
-        pathname: '/segnalazione',
-        params: { id_utente: String(data.id), username: data.username },
-      });
+      await login({ id: data.id, username: data.username, ruolo: data.ruolo });
+      // la navigazione avviene automaticamente tramite il guard in _layout.tsx
     } catch {
       setError('Impossibile raggiungere il server.');
     } finally {

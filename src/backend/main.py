@@ -100,7 +100,7 @@ def AccediUtente():
         query = "SELECT id, username, ruolo FROM utente WHERE username = %s AND password = %s"
         cursor.execute(query, (username, password))
         utente = cursor.fetchone()
-        
+
         if not utente:
             return jsonify({"error": "Username o password non corretti"}), 401
         

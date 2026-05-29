@@ -10,9 +10,10 @@ import {
   Platform,
   ScrollView,
 } from 'react-native';
-import { useRouter, useLocalSearchParams } from 'expo-router';
+import { useRouter } from 'expo-router';
 import { COLORS } from '../constants/colors';
 import { API_BASE } from '../constants/api';
+import { useAuth } from '../context/AuthContext';
 
 type Criticita = 'bassa' | 'media' | 'alta';
 
@@ -24,10 +25,7 @@ const CRITICITA_OPTIONS: { value: Criticita; label: string }[] = [
 
 export default function SegnalazioneScreen() {
   const router = useRouter();
-  const { id_utente, username } = useLocalSearchParams<{
-    id_utente: string;
-    username: string;
-  }>();
+  const { user, logout } = useAuth();
 
   const [nome, setNome] = useState('');
   const [descrizione, setDescrizione] = useState('');
@@ -49,7 +47,7 @@ export default function SegnalazioneScreen() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          id_utente: Number(id_utente),
+          id_utente: user?.id,
           nome: nome.trim(),
           descrizione: descrizione.trim(),
           criticita,
@@ -85,13 +83,13 @@ export default function SegnalazioneScreen() {
       <View style={styles.topBar}>
         <View>
           <Text style={styles.topBarTitle}>Nuova Segnalazione</Text>
-          {username ? (
-            <Text style={styles.topBarSub}>Ciao, {username}</Text>
+          {user ? (
+            <Text style={styles.topBarSub}>Ciao, {user.username}</Text>
           ) : null}
         </View>
         <TouchableOpacity
           style={styles.logoutBtn}
-          onPress={() => router.replace('/login')}
+          onPress={async () => { await logout(); }}
         >
           <Text style={styles.logoutText}>Esci</Text>
         </TouchableOpacity>
