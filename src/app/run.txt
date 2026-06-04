@@ -1,1 +1,3 @@
+npm install expo-secure-store   // isntalla expo se non va
+ 
 RoboCop>npx expo start --web

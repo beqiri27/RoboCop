@@ -9,6 +9,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  Image,
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { COLORS } from '../constants/colors';
@@ -60,9 +61,11 @@ export default function LoginScreen() {
         keyboardShouldPersistTaps="handled"
       >
         <View style={styles.header}>
-          <View style={styles.logoCircle}>
-            <Text style={styles.logoText}>RC</Text>
-          </View>
+          <Image
+            source={require('./assets/robocop-logo.png')}
+            style={styles.logo}
+            resizeMode="contain"
+          />
           <Text style={styles.title}>RoboCop</Text>
           <Text style={styles.subtitle}>Accedi al tuo account</Text>
         </View>
@@ -123,21 +126,11 @@ const styles = StyleSheet.create({
     paddingVertical: 48,
   },
   header: { alignItems: 'center', marginBottom: 32 },
-  logoCircle: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
-    backgroundColor: COLORS.primary,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 16,
-    shadowColor: COLORS.primary,
-    shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.35,
-    shadowRadius: 10,
-    elevation: 8,
+  logo: {
+    width: 100,
+    height: 100,
+    marginBottom: 12,
   },
-  logoText: { color: '#fff', fontSize: 28, fontWeight: '800' },
   title: { fontSize: 30, fontWeight: '800', color: COLORS.text, letterSpacing: 0.5 },
   subtitle: { fontSize: 14, color: COLORS.textMuted, marginTop: 4 },
   card: {

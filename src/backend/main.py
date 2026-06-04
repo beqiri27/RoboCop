@@ -133,14 +133,26 @@ def CreaSegnalazione():
     nome = data.get("nome")
     descrizione = data.get("descrizione")
     criticita = data.get("criticita")  # 'bassa', 'media', 'alta'
-    
+    tipologia = data.get("tipologia")
+
+    TIPOLOGIE_VALIDE = [
+        'Sicurezza e Ordine Pubblico',
+        'Viabilità e Mobilità',
+        'Degrado e Manutenzione Urbana',
+        'Emergenze e Infrastrutture',
+        'altro',
+    ]
+
     # Validazione
-    if not all([id_utente, nome, descrizione, criticita]):
+    if not all([id_utente, nome, descrizione, criticita, tipologia]):
         return jsonify({"error": "Campi obbligatori mancanti"}), 400
-    
+
     if criticita not in ['bassa', 'media', 'alta']:
         return jsonify({"error": "Criticità non valida. Usa: bassa, media, alta"}), 400
-    
+
+    if tipologia not in TIPOLOGIE_VALIDE:
+        return jsonify({"error": "Tipologia non valida"}), 400
+
     # Connessione al database
     connection = connessione_db()
     if not connection:
@@ -158,20 +170,21 @@ def CreaSegnalazione():
         # Inserisci la segnalazione
         data_creazione = datetime.now().date()
         query_insert = """
-            INSERT INTO segnalazione 
-            (id_utente, nome, descrizione, data_creazione, criticita) 
-            VALUES (%s, %s, %s, %s, %s)
+            INSERT INTO segnalazione
+            (id_utente, nome, descrizione, data_creazione, criticita, tipologia)
+            VALUES (%s, %s, %s, %s, %s, %s)
         """
         cursor.execute(query_insert, (
-            id_utente, nome, descrizione, data_creazione, criticita
+            id_utente, nome, descrizione, data_creazione, criticita, tipologia
         ))
         connection.commit()
-        
+
         risposta = {
             "message": "Segnalazione creata con successo",
             "id_segnalazione": cursor.lastrowid,
             "nome": nome,
-            "criticita": criticita
+            "criticita": criticita,
+            "tipologia": tipologia,
         }
         return jsonify(risposta), 201
     

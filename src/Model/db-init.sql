@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS segnalazione (
     coordinate_x FLOAT,
     coordinate_y FLOAT,
     criticita ENUM('bassa', 'media', 'alta') NOT NULL,
+    tipologia ENUM('Sicurezza e Ordine Pubblico', 'Viabilità e Mobilità', 'Degrado e Manutenzione Urbana','Emergenze e Infrastrutture', 'altro') NOT NULL,
     CONSTRAINT fk_utente FOREIGN KEY (id_utente) REFERENCES utente(id)
 );
 
